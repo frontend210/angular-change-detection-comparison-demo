@@ -1,0 +1,32 @@
+body {
+  font-family: Arial;
+  font-size: 14px;
+}
+
+button {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+small {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.demo-component {
+  display: block;
+  border: 1px solid black; 
+  padding: 3px 5px; 
+  /* overflow: hidden; */
+  background-color: #fff;
+  transition: background 0.1s;
+}
+
+.during-ngDoCheck {
+  background-color: #ff5;
+}
+
+.cta {
+  font-weight: 600;
+  font-size: .8em;
+}

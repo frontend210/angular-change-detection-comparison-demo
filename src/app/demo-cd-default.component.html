@@ -1,0 +1,41 @@
+<strong>counter: {{ counter }}, internalCounter: {{ internalCounter }}</strong><br />
+
+<small>
+  time: {{ time }}<br />
+  thisCheckCount: {{ thisCheckCount }}<br />
+  globalCheckCounts: {{ globalCheckCounts.concat().reverse().slice(0, 5).reverse().join(', ') }}
+</small>
+
+<div style="padding: 5px">
+  <button (click)="increaseInternalCounter()">increaseInternalCounter</button>
+  <button class="cta" (click)="increaseInternalCounter(); this.cdRef.detectChanges()">increaseInternalCounter & detectChanges</button>
+</div>
+<div  style="padding: 5px">
+  <button (click)="doNothing()">doNothing</button>
+  <button (click)="this.cdRef.markForCheck()">markForCheck</button>
+  <button (click)="this.cdRef.detectChanges()">detectChanges</button>
+  <button (click)="this.cdRef.detectChanges(); this.cdRef.detectChanges(); this.cdRef.detectChanges()">3x detectChanges</button>
+</div>
+
+<div style="display: flex">
+  <div style="flex: 1">
+    <demo-cd-default
+      *ngIf="leftBranchDepth > 0"
+      [leftBranchDepth]="leftBranchDepth-1"
+      [rightBranchDepth]="rightBranchDepth-1"
+      [counter]="counter + internalCounter"
+      >
+    </demo-cd-default>
+  </div>
+
+  <div
+    *ngIf="rightBranchDepth > 0"
+    style="flex: 1">
+    <demo-cd-default
+      [leftBranchDepth]="leftBranchDepth-1"
+      [rightBranchDepth]="rightBranchDepth-1"
+      [counter]="counter + internalCounter"
+      >
+    </demo-cd-default>
+  </div>
+</div>

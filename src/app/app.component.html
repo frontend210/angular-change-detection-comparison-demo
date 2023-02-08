@@ -1,0 +1,55 @@
+<h1>Change Detection Comparison</h1>
+
+  <p>A demo Angular 6 app showcasing different approaches to Change Detection described in the article <a href="https://medium.com/@jtomaszewski/mastering-the-angular-performance-by-dropping-the-magic-of-changedetector-7f70b8c4261e" target="_blank">Mastering the Angular performance - by dropping the magic of ChangeDetector</a>.</p>
+
+  <p>A yellow flash indicates that a component has been rechecked by Angular's ChangeDetector.</p>
+
+  <p>For performance testing I suggest setting up left branch depth to 15 and right branch depth to 8. It will render around ~1100 components at once.</p>
+
+<h3>Test variables</h3>
+<label>
+  <input type="radio" [checked]="currentView === 'default'" (click)="changeCurrentView('default')"> 
+  ChangeDetectionStrategy.Default
+</label><br />
+<label>
+  <input type="radio" [checked]="currentView === 'on-push'" (click)="changeCurrentView('on-push')"> 
+  ChangeDetectionStrategy.OnPush
+</label><br />
+<label>
+  <input type="radio" [checked]="currentView === 'detached-on-push'" (click)="changeCurrentView('detached-on-push')"> 
+  ChangeDetectionStrategy.OnPush in a parent with `this.cdRef.detach()`
+</label><br />
+
+<label>
+  Left branch's depth: 
+  <input type="number" [(ngModel)]="leftBranchDepth" (ngModelChange)="triggerChangeIfNeeded()" />
+</label><br />
+
+<label>
+  Right branch's depth: 
+  <input type="number" [(ngModel)]="rightBranchDepth" (ngModelChange)="triggerChangeIfNeeded()" />
+</label><br />
+
+<br />
+<hr />
+
+<div *ngIf="currentView === 'default'">
+	<h3>Test demo: ChangeDetectionStrategy.Default</h3>
+
+	<demo-cd-default [leftBranchDepth]="leftBranchDepth - 1" [rightBranchDepth]="rightBranchDepth - 1">
+	</demo-cd-default>
+</div>
+
+<div *ngIf="currentView === 'on-push'">
+	<h3>Test demo: ChangeDetectionStrategy.OnPush</h3>
+
+	<demo-cd-on-push [leftBranchDepth]="leftBranchDepth - 1" [rightBranchDepth]="rightBranchDepth - 1">
+	</demo-cd-on-push>
+</div>
+
+<div *ngIf="currentView === 'detached-on-push'">
+	<h3>Test demo: ChangeDetectionStrategy.OnPush in a parent with `this.cdRef.detach()`</h3>
+
+	<demo-cd-on-push [leftBranchDepth]="leftBranchDepth - 1" [rightBranchDepth]="rightBranchDepth - 1">
+	</demo-cd-on-push>
+</div>
